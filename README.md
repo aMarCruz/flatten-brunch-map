@@ -34,7 +34,7 @@ class MyPlugin {
     this.options.sourceMaps = !!config.sourceMaps
   }
 
-  function compile(file) {
+  compile (file) {
     try {
       // Do the plugin logic and then call flattenMap with the
       // received param and the generated code and sourcemap.
