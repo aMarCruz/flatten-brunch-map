@@ -3,7 +3,7 @@
 
 # flatten-brunch-map
 
-Creates the object to return in a [Brunch](http://brunch.io) plugin, with an optional sourcemap, merging it with the preceding sourcemap if necessary.
+Creates the object to return in a [Brunch](http://brunch.io) plugin, with an optional sourcemap, merged with the preceding sourcemap if necessary.
 
 ## Install
 
