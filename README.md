@@ -1,3 +1,6 @@
+[![npm Version][npm-image]][npm-url]
+[![License][license-image]][license-url]
+
 # flatten-brunch-map
 
 Creates the object to return in a [Brunch](http://brunch.io) plugin, with an optional sourcemap, merging it with the preceding sourcemap if necessary.
@@ -53,4 +56,9 @@ MyPlugin.prototype.type = 'javascript'
 module.exports = MyPlugin
 ```
 
-That's it.
+Like it? Don't forget your star.
+
+[npm-image]:      https://img.shields.io/npm/v/flatten-brunch-map.svg
+[npm-url]:        https://www.npmjs.com/package/flatten-brunch-map
+[license-image]:  https://img.shields.io/npm/l/express.svg
+[license-url]:    https://github.com/aMarCruz/flatten-brunch-map/blob/master/LICENSE
