@@ -1,6 +1,6 @@
 {
   "name": "flatten-brunch-map",
-  "version": "2.8.1",
+  "version": "2.8.2",
   "description": "Creates a file object for brunch plugins, combining source maps if neccesary",
   "main": "index.js",
   "engines": {
