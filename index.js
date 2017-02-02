@@ -3,13 +3,6 @@
 const SourceMapGenerator = require('source-map').SourceMapGenerator
 const SourceMapConsumer  = require('source-map').SourceMapConsumer
 
-function assertProperty (sourceMap, propertyName) {
-  if (!sourceMap.hasOwnProperty(propertyName)) {
-    const e = new Error(`Source map to be applied is missing the "${propertyName}" property`)
-    throw e
-  }
-}
-
 function transfer (fromSourceMap, toSourceMap, asString) {
   const smFrom    = new SourceMapConsumer(fromSourceMap)
   const smTo      = new SourceMapConsumer(toSourceMap)
@@ -29,7 +22,7 @@ function transfer (fromSourceMap, toSourceMap, asString) {
     // from's generated position -> to's original position
     const originalPosition = smTo.originalPositionFor(fromOriginalPosition)
 
-    if (originalPosition.source !== null) {
+    if (originalPosition.source != null) {
       smResult.addMapping({
         source: originalPosition.source,
         name : originalPosition.name,
@@ -60,20 +53,29 @@ function flattenBrunchMap (sourceFile, compiled, sourceMap) {
     prevMap = JSON.parse(prevMap)
   }
 
-  // make sure the new map is an object
-  if (newMap && (typeof newMap == 'string' || newMap instanceof String)) {
-    newMap = JSON.parse(newMap)
-    asString = true
-  }
-
   const result = { data: compiled }
 
   if (newMap) {
-    // check source map properties
-    assertProperty(newMap, 'mappings')
-    assertProperty(newMap, 'sources')
 
-    // previous map?
+    // make sure the new map is an object
+    if (typeof newMap == 'string' || newMap instanceof String) {
+      asString = true
+    } else {
+      newMap = JSON.stringify(sourceMap)  // normalize
+    }
+    newMap = JSON.parse(newMap)
+
+    // check the required mappings property
+    if (!newMap.mappings) {
+      throw new Error('Source map to be applied is missing the "mappings" property')
+    }
+
+    // sources defaults to current source file
+    if (!newMap.sources || !newMap.sources[0]) {
+      newMap.sources = [sourceFile.path]
+    }
+
+    // have a valid previous map?
     if (prevMap && prevMap.mappings) {
 
       if (!newMap.file && prevMap.file) {
@@ -82,11 +84,13 @@ function flattenBrunchMap (sourceFile, compiled, sourceMap) {
       result.map = transfer(newMap, prevMap, asString)
 
     } else {
-      result.map = sourceMap
+      // return the received source map already normalized
+      result.map = asString ? JSON.stringify(newMap) : newMap
     }
 
   } else if (prevMap) {
-    result.map = prevMap
+    // no new map, return the previous source map as-is
+    result.map = sourceFile.map
   }
 
   return result

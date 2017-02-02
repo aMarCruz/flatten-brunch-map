@@ -1,5 +1,10 @@
 # flatten-brunch-map Changes
 
+### 2017-02-01 - v2.8.2
+
+- Try to normalize the new source map.
+- The `sources` property defaults to the received file path.
+
 ### 2016-11-06 - v2.8.1
 
 - Rewrite to not depend on filename, now the plugin does not normalizes file names.
