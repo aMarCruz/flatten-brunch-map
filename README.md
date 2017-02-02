@@ -5,10 +5,6 @@
 
 Creates the object to return by a [Brunch](http://brunch.io) plugin, with the new sourcemap merged with the preceding sourcemap if necessary.
 
-**IMPORTANT:**
-
-v2.8.1 have a breaking change, please read the [What's New](#whats-new) section.
-
 ## Install
 
 ```bash
@@ -20,7 +16,7 @@ npm install flatten-brunch-map --save
 ```js
 const flattenMap = require('flatten-brunch-map')
 ...
-const pluginResult = flattenMap(pluginParam, compiledCode, sourceMap)
+const pluginResult = flattenMap(fileParam, compiledCode, sourceMap)
 ```
 
 ## Example
@@ -33,7 +29,7 @@ class MyPlugin {
 
   constructor (config) {
     this.options = config.plugins.myPlugin || {}
-    // Say to myCompiler if user wants sourcemap
+    // Tell to myCompiler if user wants sourcemap
     this.options.sourceMaps = !!config.sourceMaps
   }
 
@@ -43,7 +39,8 @@ class MyPlugin {
         // Do the plugin logic and then call flattenMap with the
         // received param and the generated code and sourcemap.
         const output = myCompiler(file.data, this.options)
-        const result = flattenMap(file, output.code, output.map)
+        const result = this.options.sourceMaps
+                     ? flattenMap(file, output.code, output.map) : output.code
 
         resolve(result)
       } catch (error) {
@@ -64,14 +61,7 @@ module.exports = MyPlugin
 
 ## What's New
 
-From v2.8.1, the plugin does not depend on filename.
-
-Normalization of file names that were made in previous versions (conversion of `\` to `/`) no longer occurs and the names are transferred as-is.
-
-Also from v2.8.1, the format of the `map` property of the returned object is the same as that received in the 3rd parameter. That is, if an object is received, an object is returned instead of a JSON string.
-
-This helps compatibility between different tools, but the caller must ensure consistency of the filenames.
-
+From v2.8.2, the plugin returns a normalized string or plain object with `sources` defaulting to the received file path.
 
 ---
 Like it? Don't forget your star.
