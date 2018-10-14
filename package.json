@@ -4,7 +4,7 @@
   "description": "Creates a file object for brunch plugins, combining source maps if neccesary",
   "main": "index.js",
   "engines": {
-    "node": ">=6.0",
+    "node": ">=6.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\""
