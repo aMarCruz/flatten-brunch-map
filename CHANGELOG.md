@@ -1,5 +1,11 @@
 # flatten-brunch-map Changes
 
+### 2018-10-14 - v2.10.0
+
+- Update devDependencies
+- Minimum node.js version is 6
+- Avoid throw when sourceMap mappings is an empty string (because empty code)
+
 ### 2017-02-01 - v2.8.2
 
 - Try to normalize the new source map.

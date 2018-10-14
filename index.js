@@ -66,7 +66,7 @@ function flattenBrunchMap (sourceFile, compiled, sourceMap) {
     newMap = JSON.parse(newMap)
 
     // check the required mappings property
-    if (!newMap.mappings) {
+    if (typeof newMap.mappings != 'string') {
       throw new Error('Source map to be applied is missing the "mappings" property')
     }
 
