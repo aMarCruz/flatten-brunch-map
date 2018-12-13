@@ -1,7 +1,7 @@
+# flatten-brunch-map
+
 [![npm Version][npm-image]][npm-url]
 [![License][license-image]][license-url]
-
-# flatten-brunch-map
 
 Creates the object to return by a [Brunch](http://brunch.io) plugin, with the new sourcemap merged with the preceding sourcemap if necessary.
 
@@ -48,7 +48,6 @@ class MyPlugin {
       }
     })
   }
-
 }
 
 MyPlugin.prototype.brunchPlugin = true
@@ -58,13 +57,13 @@ MyPlugin.prototype.type = 'javascript'
 module.exports = MyPlugin
 ```
 
-
 ## What's New
 
 From v2.8.2, the plugin returns a normalized string or plain object with `sources` defaulting to the received file path.
 
 ---
-Like it? Don't forget your star.
+
+Like it? Don't forget your star :)
 
 [npm-image]:      https://img.shields.io/npm/v/flatten-brunch-map.svg
 [npm-url]:        https://www.npmjs.com/package/flatten-brunch-map
